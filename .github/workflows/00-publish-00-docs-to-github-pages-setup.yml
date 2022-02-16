@@ -1,10 +1,11 @@
 
-name: Publish 00 docs create repos
+name: 00 Publish 00 docs create repos
 on: 
   workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: "Create -docs repo"
         working-directory: .
