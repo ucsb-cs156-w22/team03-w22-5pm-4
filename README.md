@@ -1,5 +1,11 @@
 # demo-spring-react-example-v2: dsre-v2
 
+
+      <a href="https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-4">
+        <img src="https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-4/branch/main/graph/badge.svg?token=MPpzgIcfyf"/>
+      </a>
+    
+
 Storybook is here:
 * Production: <https://ucsb-cs156-w22.github.io/STARTER-team03-docs/>
 * QA:  <https://ucsb-cs156-w22.github.io/STARTER-team03-docs-qa/>
