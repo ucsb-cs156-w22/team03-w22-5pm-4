@@ -33,7 +33,7 @@ public class StudentsController extends ApiController {
     ObjectMapper mapper;
 
     @ApiOperation(value = "List all students")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
     public Iterable<Student> allStudents() {
         Iterable<Student> students = studentCollection.findAll();
@@ -41,7 +41,7 @@ public class StudentsController extends ApiController {
     }
 
     @ApiOperation(value = "Add a Student to the collection")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public Student postStudent(
             @ApiParam("firstName") @RequestParam String firstName,
