@@ -7,6 +7,10 @@ import TodosIndexPage from "main/pages/Todos/TodosIndexPage";
 import TodosCreatePage from "main/pages/Todos/TodosCreatePage";
 import TodosEditPage from "main/pages/Todos/TodosEditPage";
 
+import CollegiateSubredditsIndexPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsIndexPage";
+import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/CollegiateSubredditsCreatePage";
+// import TodosEditPage from "main/pages/Todos/TodosEditPage";
+
 import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
@@ -42,6 +46,20 @@ function App() {
           )
         }
 
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/collegiateSubreddits/list" element={<CollegiateSubredditsIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/collegiateSubreddits/create" element={<CollegiateSubredditsCreatePage />} />
+            </>
+          )
+        }
 
         {
           hasRole(currentUser, "ROLE_USER") && (
