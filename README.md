@@ -63,7 +63,7 @@ If you get the following message on Heroku, it probably means that you failed to
 Failed to connect to the frontend server... On Heroku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start";
 ```
 
-# Accessing swagger!
+# Accessing swagger
 
 To access the swagger API endpoints, use:
 
