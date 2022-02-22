@@ -109,7 +109,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
             
-            <Nav className="mr-auto">
+            {/* <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="UCSBSubjects" id="appnavbar-ucsbsubjects-dropdown" data-testid="appnavbar-ucsbsubjects-dropdown" >
@@ -123,7 +123,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                   </NavDropdown>
                 )
               }
-            </Nav>
+            </Nav> */}
 
             <Nav className="ml-auto">
               {
