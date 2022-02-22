@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.team02.entities;
+package edu.ucsb.cs156.example.entities;
 
 
 import javax.persistence.Entity;

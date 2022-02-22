@@ -1,10 +1,10 @@
-package edu.ucsb.cs156.team02.controllers;
+package edu.ucsb.cs156.example.controllers;
 
-import edu.ucsb.cs156.team02.entities.CollegeSubreddit;
-import edu.ucsb.cs156.team02.entities.CollegeSubredditNoId;
-import edu.ucsb.cs156.team02.entities.User;
-import edu.ucsb.cs156.team02.models.CurrentUser;
-import edu.ucsb.cs156.team02.repositories.CollegeSubredditRepository;
+import edu.ucsb.cs156.example.entities.CollegeSubreddit;
+import edu.ucsb.cs156.example.entities.CollegeSubredditNoId;
+import edu.ucsb.cs156.example.entities.User;
+import edu.ucsb.cs156.example.models.CurrentUser;
+import edu.ucsb.cs156.example.repositories.CollegeSubredditRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -59,7 +59,7 @@ public class CollegeSubredditController extends ApiController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
     @GetMapping("/all")
     public Iterable<CollegeSubreddit> allUsersCollegeSubreddits() {
-        loggingService.logMethod();
+        // loggingService.logMethod();
         Iterable<CollegeSubreddit> collegesubreddits = collegeSubredditRepository.findAll();
         return collegesubreddits;
     }
@@ -72,7 +72,7 @@ public class CollegeSubredditController extends ApiController {
             @ApiParam("College Location") @RequestParam String location,
             @ApiParam("College Subreddit") @RequestParam String subreddit)
     {
-        loggingService.logMethod();
+        // loggingService.logMethod();
 
         CollegeSubreddit collegesubreddit = new CollegeSubreddit();
         collegesubreddit.setName(name);
@@ -88,7 +88,7 @@ public class CollegeSubredditController extends ApiController {
     @GetMapping("/getbyid")
     public ResponseEntity<String> getCollegeSubredditById(
             @ApiParam("id of college to look up subreddit") @RequestParam Long id) throws JsonProcessingException {
-        loggingService.logMethod();
+        // loggingService.logMethod();
 
         CollegeSubredditOrError coe = new CollegeSubredditOrError(id);
 
@@ -130,7 +130,7 @@ public class CollegeSubredditController extends ApiController {
     public ResponseEntity<String> putCollegeSubredditById(
             @ApiParam("id of college subreddit to edit") @RequestParam Long id,
             @RequestBody @Valid CollegeSubredditNoId incomingCollegeSubredditNoId) throws JsonProcessingException {
-        loggingService.logMethod();
+        // loggingService.logMethod();
 
         CollegeSubreddit incomingCollegeSubreddit = new CollegeSubreddit(id, incomingCollegeSubredditNoId);
         CollegeSubredditOrError coe = new CollegeSubredditOrError(id);
@@ -152,7 +152,7 @@ public class CollegeSubredditController extends ApiController {
     @DeleteMapping("delete")
     public ResponseEntity<String> deleteCollegeSubreddit(
             @ApiParam("id of college subreddit to delete") @RequestParam Long id) {
-        loggingService.logMethod();
+        // loggingService.logMethod();
 
         CollegeSubredditOrError coe = new CollegeSubredditOrError(id);
 

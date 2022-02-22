@@ -1,6 +1,6 @@
-package edu.ucsb.cs156.team02.repositories;
+package edu.ucsb.cs156.example.repositories;
 
-import edu.ucsb.cs156.team02.entities.CollegeSubreddit;
+import edu.ucsb.cs156.example.entities.CollegeSubreddit;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
