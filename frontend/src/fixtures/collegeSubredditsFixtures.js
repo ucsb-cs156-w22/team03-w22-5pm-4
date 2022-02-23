@@ -1,4 +1,4 @@
-const collegiateSubredditsFixtures = {
+const collegeSubredditsFixtures = {
     oneReddit: {
         "id": 1,
         "name": "Name 1",
@@ -28,4 +28,4 @@ const collegiateSubredditsFixtures = {
 };
 
 
-export { collegiateSubredditsFixtures };
+export { collegeSubredditsFixtures };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UCSBDateForm from "main/components/collegesubreddits/CollegeSubredditForm"
+import CollegeSubredditForm from "main/components/collegesubreddits/CollegeSubredditForm"
 import { collegeSubredditsFixtures } from 'fixtures/collegeSubredditsFixtures';
 
 export default {
