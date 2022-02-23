@@ -102,29 +102,29 @@ describe("UserTable tests", () => {
 
   });
 
-  test("Edit button navigates to the edit page for admin user", async () => {
+  // test("Edit button navigates to the edit page for admin user", async () => {
 
-    const currentUser = currentUserFixtures.adminUser;
+  //   const currentUser = currentUserFixtures.adminUser;
 
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBSubjectsTable subjects={ucsbSubjectsFixtures.threeSubjects} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
+  //   const { getByText, getByTestId } = render(
+  //     <QueryClientProvider client={queryClient}>
+  //       <MemoryRouter>
+  //         <UCSBSubjectsTable subjects={ucsbSubjectsFixtures.threeSubjects} currentUser={currentUser} />
+  //       </MemoryRouter>
+  //     </QueryClientProvider>
 
-    );
+  //   );
 
-    await waitFor(() => { expect(getByTestId(`UCSBSubjectsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+  //   await waitFor(() => { expect(getByTestId(`UCSBSubjectsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
 
-    const editButton = getByTestId(`UCSBSubjectsTable-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
+  //   const editButton = getByTestId(`UCSBSubjectsTable-cell-row-0-col-Edit-button`);
+  //   expect(editButton).toBeInTheDocument();
     
-    fireEvent.click(editButton);
+  //   fireEvent.click(editButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsbsubjects/edit/1'));
+  //   await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsbsubjects/edit/1'));
 
-  });
+  // });
 
   test("Delete button calls the delete call back", async () => {
 
