@@ -62,32 +62,31 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="location">Quarter YYYYQ</Form.Label>
+                <Form.Label htmlFor="location">Location</Form.Label>
                 <Form.Control
                     data-testid="CollegeSubredditsForm-location"
                     id="location"
                     type="text"
                     isInvalid={Boolean(errors.location)}
-                    {...register("location", { required: true, pattern: yyyyq_regex })}
+                    {...register("location", { 
+                        required: "Location is Required."})}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.location && 'Location is required. '}
-                    {errors.location?.type === 'pattern' && 'Location must be in the format YYYYQ, e.g. 20224 for Fall 2022'}
+                    {errors.location?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="subreddit">Date (iso format)</Form.Label>
+                <Form.Label htmlFor="subreddit">subreddit</Form.Label>
                 <Form.Control
                     data-testid="CollegeSubredditsForm-subreddit"
                     id="subreddit"
                     type="text"
                     isInvalid={Boolean(errors.subreddit)}
-                    {...register("subreddit", { required: true, pattern: isodate_regex })}
+                    {...register("subreddit", { required: "Subreddit is Required"})}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.subreddit && 'Subreddit is required. '}
-                    {errors.subreddit?.type === 'pattern' && 'Subreddit must be in ISO format, e.g. 2022-01-02T15:30'}
+                    {errors.subreddit?.message }
                 </Form.Control.Feedback>
             </Form.Group>
 
