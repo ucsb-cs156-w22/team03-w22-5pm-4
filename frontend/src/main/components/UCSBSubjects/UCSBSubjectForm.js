@@ -17,6 +17,7 @@ function UCSBSubjectForm({
   // Stryker enable all
 
   const navigate = useNavigate();
+  const bool_regex = /^(true|false)$/i;
 
   // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-Subjecttime
   // Note that even this complex regex may still need some tweaks
@@ -137,11 +138,12 @@ function UCSBSubjectForm({
           type="text"
           isInvalid={Boolean(errors.inactive)}
           {...register('inactive', {
-            required: 'inactive is required.',
+            required: 'inactive is required.', pattern:bool_regex
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.inactive?.message}
+                    {errors.inactive && 'inactive is required.'}
+                    {errors.inactive?.type === 'pattern' && 'inactive must be a boolean'}
         </Form.Control.Feedback>
       </Form.Group>
 
