@@ -2,11 +2,11 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 // import { toast } from "react-toastify";
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/CollegiateSubredditUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/CollegeSubredditUtils"
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function CollegiateSubredditsTable({ subreddits, currentUser }) {
+export default function CollegeSubredditsTable({ subreddits, currentUser }) {
 
     const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ export default function CollegiateSubredditsTable({ subreddits, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/collegiatesubreddits/all"]
+        ["/api/collegesubreddits/all"]
     );
     // Stryker enable all 
 
@@ -47,8 +47,8 @@ export default function CollegiateSubredditsTable({ subreddits, currentUser }) {
     ];
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
-        columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
-        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
+        columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegeSubredditsTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegeSubredditsTable"));
     } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
@@ -58,6 +58,6 @@ export default function CollegiateSubredditsTable({ subreddits, currentUser }) {
     return <OurTable
         data={memoizedDates}
         columns={memoizedColumns}
-        testid={"CollegiateSubredditsTable"}
+        testid={"CollegeSubredditsTable"}
     />;
 };

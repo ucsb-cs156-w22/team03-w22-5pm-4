@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 
-function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, buttonLabel="Create" }) {
+function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonLabel="Create" }) {
 
     // Stryker disable all
     const {
@@ -12,7 +12,7 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
         formState: { errors },
         handleSubmit,
     } = useForm(
-        { defaultValues: initialCollegiateSubreddits || {}, }
+        { defaultValues: initialCollegeSubreddits || {}, }
     );
     // Stryker enable all
 
@@ -31,15 +31,15 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
 
         <Form onSubmit={handleSubmit(submitAction)}>
 
-            {initialCollegiateSubreddits && (
+            {initialCollegeSubreddits && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
-                        data-testid="CollegiateSubredditsForm-id"
+                        data-testid="CollegeSubredditsForm-id"
                         id="id"
                         type="text"
                         {...register("id")}
-                        value={initialCollegiateSubreddits.id}
+                        value={initialCollegeSubreddits.id}
                         disabled
                     />
                 </Form.Group>
@@ -48,7 +48,7 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="name">Name</Form.Label>
                 <Form.Control
-                    data-testid="CollegiateSubredditsForm-name"
+                    data-testid="CollegeSubredditsForm-name"
                     id="name"
                     type="text"
                     isInvalid={Boolean(errors.name)}
@@ -64,7 +64,7 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="location">Quarter YYYYQ</Form.Label>
                 <Form.Control
-                    data-testid="CollegiateSubredditsForm-location"
+                    data-testid="CollegeSubredditsForm-location"
                     id="location"
                     type="text"
                     isInvalid={Boolean(errors.location)}
@@ -79,7 +79,7 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="subreddit">Date (iso format)</Form.Label>
                 <Form.Control
-                    data-testid="CollegiateSubredditsForm-subreddit"
+                    data-testid="CollegeSubredditsForm-subreddit"
                     id="subreddit"
                     type="text"
                     isInvalid={Boolean(errors.subreddit)}
@@ -93,14 +93,14 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
 
             <Button
                 type="submit"
-                data-testid="CollegiateSubredditsForm-submit"
+                data-testid="CollegeSubredditsForm-submit"
             >
                 {buttonLabel}
             </Button>
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
-                data-testid="CollegiateSubredditsForm-cancel"
+                data-testid="CollegeSubredditsForm-cancel"
             >
                 Cancel
             </Button>
@@ -110,4 +110,4 @@ function CollegiateSubredditsForm({ initialCollegiateSubreddits, submitAction, b
     )
 }
 
-export default CollegiateSubredditsForm;
+export default CollegeSubredditsForm;

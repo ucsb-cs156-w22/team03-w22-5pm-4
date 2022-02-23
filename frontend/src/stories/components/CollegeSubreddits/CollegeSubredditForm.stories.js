@@ -1,11 +1,11 @@
 import React from 'react';
 
-import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm"
-import { ucsbDatesFixtures } from 'fixtures/ucsbDatesFixtures';
+import UCSBDateForm from "main/components/collegesubreddits/CollegeSubredditForm"
+import { collegeSubredditsFixtures } from 'fixtures/collegeSubredditsFixtures';
 
 export default {
-    title: 'components/UCSBDates/UCSBDateForm',
-    component: UCSBDateForm
+    title: 'components/collegesubreddits/CollegeSubredditsForm',
+    component: CollegeSubredditsForm
 };
 
 
@@ -25,7 +25,7 @@ Default.args = {
 export const Show = Template.bind({});
 
 Show.args = {
-    ucsbDate: ucsbDatesFixtures.oneDate,
+    ucsbDate: collegeSubredditsFixtures.oneDate,
     submitText: "",
     submitAction: () => { }
 };
