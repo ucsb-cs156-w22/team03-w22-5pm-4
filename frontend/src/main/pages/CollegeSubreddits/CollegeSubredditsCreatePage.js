@@ -1,5 +1,5 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import CollegeSubredditsForm from "main/components/CollegeSubredditsForm/CollegeSubredditForm";
+import CollegeSubredditsForm from "main/components/CollegeSubreddits/CollegeSubredditForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
