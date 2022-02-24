@@ -140,4 +140,29 @@ describe('UCSBSubjectForm tests', () => {
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
+
+
+  test("Correct Error messsages on bad input", async () => {
+
+    const { getByTestId, getByText } = render(
+        <Router  >
+            <UCSBSubjectForm />
+        </Router>
+    );
+    await waitFor(() => expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument());
+    await waitFor(() => expect(getByTestId("UCSBSubjectForm-subjectTranslation")).toBeInTheDocument());
+    await waitFor(() => expect(getByTestId("UCSBSubjectForm-deptCode")).toBeInTheDocument());
+    await waitFor(() => expect(getByTestId("UCSBSubjectForm-collegeCode")).toBeInTheDocument());
+    await waitFor(() => expect(getByTestId("UCSBSubjectForm-relatedDeptCode")).toBeInTheDocument());
+    await waitFor(() => expect(getByTestId("UCSBSubjectForm-inactive")).toBeInTheDocument());
+
+    const invalidField = getByTestId("UCSBSubjectForm-inactive");
+    const submitButton = getByTestId("UCSBSubjectForm-submit");
+
+    fireEvent.change(invalidField, { target: { value: 'bad-input' } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(getByText(/inactive must be a boolean/)).toBeInTheDocument());
+  });
+
 });
