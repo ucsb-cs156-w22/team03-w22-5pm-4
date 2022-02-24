@@ -93,6 +93,21 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
+            
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Collegiate Subreddits" id="appnavbar-collegesubreddits-dropdown" data-testid="appnavbar-collegesubreddits-dropdown" >
+                    <NavDropdown.Item href="/collegesubreddits/list" data-testid="appnavbar-collegesubreddits-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/collegesubreddits/create" data-testid="appnavbar-collegesubreddits-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
 
             <Nav className="mr-auto">
               {
