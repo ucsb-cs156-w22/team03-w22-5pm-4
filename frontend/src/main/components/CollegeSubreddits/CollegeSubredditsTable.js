@@ -11,7 +11,7 @@ export default function CollegeSubredditsTable({ subreddits, currentUser }) {
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/ucsbdates/edit/${cell.row.values.id}`)
+        navigate(`/collegesubreddits/edit/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -19,12 +19,14 @@ export default function CollegeSubredditsTable({ subreddits, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/collegesubreddits/all"]
+        ["/api/collegesubreddits/all"],
     );
     // Stryker enable all 
 
     // Stryker disable next-line all : TODO try to make a good test for this
-    const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
+    const deleteCallback = async (cell) => {
+        deleteMutation.mutate(cell);
+    }
 
 
     const columns = [
@@ -49,7 +51,7 @@ export default function CollegeSubredditsTable({ subreddits, currentUser }) {
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegeSubredditsTable"));
         columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegeSubredditsTable"));
-    } 
+    }
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
     const memoizedColumns = React.useMemo(() => columns, [columns]);

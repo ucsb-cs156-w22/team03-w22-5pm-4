@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, waitFor, fireEvent } from "@testing-library/react";
 import CollegeSubredditsCreatePage from "main/pages/CollegeSubreddits/CollegeSubredditsCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -61,12 +61,12 @@ describe("CollegeSubredditsCreatePage tests", () => {
             subreddit: "ucsbsubreddit"
         };
 
-        axiosMock.onPost("/api/ucollegesubreddits/post").reply(202, collegeSubreddit);
+        axiosMock.onPost("/api/collegesubreddits/post").reply(202, collegeSubreddit);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDatesCreatePage />
+                    <CollegeSubredditsCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -94,7 +94,7 @@ describe("CollegeSubredditsCreatePage tests", () => {
             {
                 "name": "UCSB",
                 "location": "SB",
-                "subreddit": "ucsbreddit"
+                "subreddit": "ucsbsubreddit"
             });
 
         expect(mockToast).toBeCalledWith("New collegeSubreddit Created - id: 15 name: UCSB");

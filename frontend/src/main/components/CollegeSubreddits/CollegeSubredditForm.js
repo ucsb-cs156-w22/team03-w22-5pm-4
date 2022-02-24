@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 
-function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonLabel="Create" }) {
+function CollegeSubredditForm({ initialCollegeSubreddit, submitAction, buttonLabel = "Create" }) {
 
     // Stryker disable all
     const {
@@ -12,7 +12,7 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
         formState: { errors },
         handleSubmit,
     } = useForm(
-        { defaultValues: initialCollegeSubreddits || {}, }
+        { defaultValues: initialCollegeSubreddit || {}, }
     );
     // Stryker enable all
 
@@ -31,15 +31,15 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
 
         <Form onSubmit={handleSubmit(submitAction)}>
 
-            {initialCollegeSubreddits && (
+            {initialCollegeSubreddit && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
-                        data-testid="CollegeSubredditsForm-id"
+                        data-testid="CollegeSubredditForm-id"
                         id="id"
                         type="text"
                         {...register("id")}
-                        value={initialCollegeSubreddits.id}
+                        value={initialCollegeSubreddit.id}
                         disabled
                     />
                 </Form.Group>
@@ -48,7 +48,7 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="name">Name</Form.Label>
                 <Form.Control
-                    data-testid="CollegeSubredditsForm-name"
+                    data-testid="CollegeSubredditForm-name"
                     id="name"
                     type="text"
                     isInvalid={Boolean(errors.name)}
@@ -64,12 +64,13 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="location">Location</Form.Label>
                 <Form.Control
-                    data-testid="CollegeSubredditsForm-location"
+                    data-testid="CollegeSubredditForm-location"
                     id="location"
                     type="text"
                     isInvalid={Boolean(errors.location)}
-                    {...register("location", { 
-                        required: "Location is Required."})}
+                    {...register("location", {
+                        required: "Location is required."
+                    })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.location?.message}
@@ -79,27 +80,27 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="subreddit">subreddit</Form.Label>
                 <Form.Control
-                    data-testid="CollegeSubredditsForm-subreddit"
+                    data-testid="CollegeSubredditForm-subreddit"
                     id="subreddit"
                     type="text"
                     isInvalid={Boolean(errors.subreddit)}
-                    {...register("subreddit", { required: "Subreddit is Required"})}
+                    {...register("subreddit", { required: "Subreddit is required." })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.subreddit?.message }
+                    {errors.subreddit?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
             <Button
                 type="submit"
-                data-testid="CollegeSubredditsForm-submit"
+                data-testid="CollegeSubredditForm-submit"
             >
                 {buttonLabel}
             </Button>
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
-                data-testid="CollegeSubredditsForm-cancel"
+                data-testid="CollegeSubredditForm-cancel"
             >
                 Cancel
             </Button>
@@ -109,4 +110,4 @@ function CollegeSubredditsForm({ initialCollegeSubreddits, submitAction, buttonL
     )
 }
 
-export default CollegeSubredditsForm;
+export default CollegeSubredditForm;

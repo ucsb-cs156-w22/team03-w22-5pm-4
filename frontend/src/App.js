@@ -16,6 +16,7 @@ import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 
 import CollegeSubredditsIndexPage from "main/pages/CollegeSubreddits/CollegeSubredditsIndexPage";
 import CollegeSubredditsCreatePage from "main/pages/CollegeSubreddits/CollegeSubredditsCreatePage";
+import CollegeSubredditsEditPage from "main/pages/CollegeSubreddits/CollegeSubredditsEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -86,6 +87,7 @@ function App() {
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
+              <Route exact path="/collegesubreddits/edit/:id" element={<CollegeSubredditsEditPage />} />
               <Route exact path="/collegesubreddits/create" element={<CollegeSubredditsCreatePage />} />
             </>
           )

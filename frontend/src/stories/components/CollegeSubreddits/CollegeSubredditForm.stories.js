@@ -4,8 +4,8 @@ import CollegeSubredditForm from "main/components/collegesubreddits/CollegeSubre
 import { collegeSubredditsFixtures } from 'fixtures/collegeSubredditsFixtures';
 
 export default {
-    title: 'components/collegesubreddits/CollegeSubredditsForm',
-    component: CollegeSubredditsForm
+    title: 'components/collegesubreddits/CollegeSubredditForm',
+    component: CollegeSubredditForm
 };
 
 

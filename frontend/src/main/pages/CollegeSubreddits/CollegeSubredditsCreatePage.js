@@ -1,5 +1,5 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import CollegeSubredditsForm from "main/components/CollegeSubreddits/CollegeSubredditForm";
+import CollegeSubredditForm from "main/components/CollegeSubreddits/CollegeSubredditForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
@@ -16,7 +16,7 @@ export default function CollegeSubredditsCreatePage() {
   });
 
   const onSuccess = (collegeSubreddit) => {
-    toast(`New ucsbDate Created - id: ${collegeSubreddit.id} name: ${collegeSubreddit.name}`);
+    toast(`New collegeSubreddit Created - id: ${collegeSubreddit.id} name: ${collegeSubreddit.name}`);
   }
 
   const mutation = useBackendMutation(
@@ -42,7 +42,7 @@ export default function CollegeSubredditsCreatePage() {
       <div className="pt-2">
         <h1>Create New College Subreddit</h1>
         <p>
-          <CollegeSubredditsForm submitAction={onSubmit} />
+          <CollegeSubredditForm submitAction={onSubmit} />
         </p>
       </div>
     </BasicLayout>
