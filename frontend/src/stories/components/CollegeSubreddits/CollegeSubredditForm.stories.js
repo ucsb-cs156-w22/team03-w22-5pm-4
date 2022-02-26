@@ -1,10 +1,10 @@
 import React from 'react';
 
-import CollegeSubredditForm from "main/components/collegesubreddits/CollegeSubredditForm"
+import CollegeSubredditForm from "main/components/CollegeSubreddits/CollegeSubredditForm"
 import { collegeSubredditsFixtures } from 'fixtures/collegeSubredditsFixtures';
 
 export default {
-    title: 'components/collegesubreddits/CollegeSubredditForm',
+    title: 'components/CollegeSubreddits/CollegeSubredditForm',
     component: CollegeSubredditForm
 };
 
