@@ -20,6 +20,7 @@ import UCSBSubjectsCreatePage from "main/pages/UCSBSubjects/UCSBSubjectsCreatePa
 import UCSBSubjectsEditPage from "main/pages/UCSBSubjects/UCSBSubjectsEditPage";
 import CollegeSubredditsIndexPage from "main/pages/CollegeSubreddits/CollegeSubredditsIndexPage";
 import CollegeSubredditsCreatePage from "main/pages/CollegeSubreddits/CollegeSubredditsCreatePage";
+import CollegeSubredditsEditPage from "main/pages/CollegeSubreddits/CollegeSubredditsEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -94,11 +95,11 @@ function App() {
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
-
+              <Route exact path="/collegesubreddits/edit/:id" element={<CollegeSubredditsEditPage />} />
+              <Route exact path="/collegesubreddits/create" element={<CollegeSubredditsCreatePage />} />
+                
               <Route exact path="/ucsbsubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
               <Route exact path="/ucsbsubjects/create" element={<UCSBSubjectsCreatePage />} />
-
-              <Route exact path="/collegesubreddits/create" element={<CollegeSubredditsCreatePage />} />
 
             </>
           )
