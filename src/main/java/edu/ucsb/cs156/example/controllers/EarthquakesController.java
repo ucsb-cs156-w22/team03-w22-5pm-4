@@ -26,6 +26,7 @@ public class EarthquakesController extends ApiController{
 
     @Autowired
     EarthquakeQueryService earthquakeQueryService;
+    // mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     @ApiOperation(value = "Get earthquakes a certain distance from UCSB's Storke Tower", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
     @GetMapping("/get")
