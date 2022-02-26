@@ -14,6 +14,10 @@ import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 import StudentsIndexPage from "main/pages/Students/StudentsIndexPage";
 import StudentsCreatePage from "main/pages/Students/StudentsCreatePage";
 
+
+import UCSBSubjectsIndexPage from "main/pages/UCSBSubjects/UCSBSubjectsIndexPage";
+import UCSBSubjectsCreatePage from "main/pages/UCSBSubjects/UCSBSubjectsCreatePage";
+import UCSBSubjectsEditPage from "main/pages/UCSBSubjects/UCSBSubjectsEditPage";
 import CollegeSubredditsIndexPage from "main/pages/CollegeSubreddits/CollegeSubredditsIndexPage";
 import CollegeSubredditsCreatePage from "main/pages/CollegeSubreddits/CollegeSubredditsCreatePage";
 import CollegeSubredditsEditPage from "main/pages/CollegeSubreddits/CollegeSubredditsEditPage";
@@ -80,7 +84,11 @@ function App() {
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
+
+              <Route exact path="/ucsbsubjects/list" element={<UCSBSubjectsIndexPage />} />
+
               <Route exact path="/collegesubreddits/list" element={<CollegeSubredditsIndexPage />} />
+
             </>
           )
         }
@@ -89,6 +97,10 @@ function App() {
             <>
               <Route exact path="/collegesubreddits/edit/:id" element={<CollegeSubredditsEditPage />} />
               <Route exact path="/collegesubreddits/create" element={<CollegeSubredditsCreatePage />} />
+                
+              <Route exact path="/ucsbsubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
+              <Route exact path="/ucsbsubjects/create" element={<UCSBSubjectsCreatePage />} />
+
             </>
           )
         }
