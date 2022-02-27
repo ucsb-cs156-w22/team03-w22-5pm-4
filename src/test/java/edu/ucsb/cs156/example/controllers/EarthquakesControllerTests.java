@@ -1,6 +1,4 @@
 package edu.ucsb.cs156.example.controllers;
-import edu.ucsb.cs156.example.repositories.UserRepository;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Test;
@@ -38,9 +36,6 @@ public class EarthquakesControllerTests {
 
   @MockBean
   EarthquakeQueryService mockEarthquakeQueryService;
-
-    @MockBean
-    UserRepository userRepository;
 
   @Test
   public void test_getEarthquakes() throws Exception {
