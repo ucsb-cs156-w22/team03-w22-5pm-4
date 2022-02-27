@@ -1,7 +1,7 @@
 import { render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage.sample.";
 
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
@@ -12,6 +12,8 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
 
 describe("EarthquakesIndexPage tests", () => {
+
+    const axiosMock = new AxiosMockAdapter(axios);
     const testId = "EarthquakesTable";
 
     const setupUserOnly = () => {

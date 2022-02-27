@@ -21,7 +21,8 @@ import UCSBSubjectsEditPage from "main/pages/UCSBSubjects/UCSBSubjectsEditPage";
 import CollegeSubredditsIndexPage from "main/pages/CollegeSubreddits/CollegeSubredditsIndexPage";
 import CollegeSubredditsCreatePage from "main/pages/CollegeSubreddits/CollegeSubredditsCreatePage";
 import CollegeSubredditsEditPage from "main/pages/CollegeSubreddits/CollegeSubredditsEditPage";
-
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage.sample.";
+import EarthquakesCreatePage from "main/pages/Earthquakes/EarthquakesCreatePage";
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -89,6 +90,8 @@ function App() {
 
               <Route exact path="/collegesubreddits/list" element={<CollegeSubredditsIndexPage />} />
 
+              <Route exact path="/earthquakes/list" element={<EarthquakesIndexPage />} />
+
             </>
           )
         }
@@ -100,6 +103,8 @@ function App() {
                 
               <Route exact path="/ucsbsubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
               <Route exact path="/ucsbsubjects/create" element={<UCSBSubjectsCreatePage />} />
+
+              <Route exact path="/earthquakes/retrieve" element={<EarthquakesCreatePage />} />
 
             </>
           )

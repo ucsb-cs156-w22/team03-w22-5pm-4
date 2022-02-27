@@ -16,7 +16,6 @@ export default function EarthquakesIndexPage() {
       { method: "GET", url: "/api/earthquakes/all" },
       []
     );
-
   return (
     <BasicLayout>
       <div className="pt-2">

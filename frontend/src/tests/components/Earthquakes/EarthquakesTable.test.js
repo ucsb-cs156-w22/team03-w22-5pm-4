@@ -61,8 +61,8 @@ describe("EarthquakesTable tests", () => {
 
     );
 
-    const expectedHeaders = ["Title", "Mag", "Place", "Time"];
-    const expectedFields = ["title", "mag", "place", "time"];
+    const expectedHeaders = ["id","Title", "Mag", "Place", "Time"];
+    const expectedFields = ["id","title", "mag", "place", "time"];
     const testId = "EarthquakesTable";
 
     expectedHeaders.forEach( (headerText) => {
@@ -75,10 +75,10 @@ describe("EarthquakesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
+    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
     expect(getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Title 1");
-    expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Ttitle 2");
-    expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent("1");
-    expect(getByTestId(`${testId}-cell-row-1-col-mag`)).toHaveTextContent("2");
+    expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Title 2");
 
   });
 

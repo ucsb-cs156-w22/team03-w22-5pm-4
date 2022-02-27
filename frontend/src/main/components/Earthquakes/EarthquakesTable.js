@@ -5,8 +5,12 @@ export default function EarthquakesTable({ earthquakes, currentUser }) {
 
     const columns = [
         {
+            Header: 'id',
+            accessor: 'id', // accessor is the "key" in the data
+        },
+        {
             Header: 'Title',
-            accessor: 'title', // accessor is the "key" in the data
+            accessor: 'title',
         },
         {
             Header: 'Mag',
