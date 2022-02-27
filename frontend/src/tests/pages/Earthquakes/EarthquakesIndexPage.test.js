@@ -1,7 +1,7 @@
 import { render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage.sample.";
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
@@ -75,8 +75,8 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-mag`)).toHaveTextContent("2");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
     });
 
     test("renders two earthquakes without crashing for admin user", async () => {
@@ -92,8 +92,8 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-mag`)).toHaveTextContent("2");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
@@ -118,7 +118,7 @@ describe("EarthquakesIndexPage tests", () => {
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
         restoreConsole();
 
-        expect(queryByTestId(`${testId}-cell-row-0-col-title`)).not.toBeInTheDocument();
+        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
 });
