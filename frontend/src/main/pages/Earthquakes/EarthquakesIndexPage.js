@@ -12,7 +12,7 @@ export default function EarthquakesIndexPage() {
   const { data: earthquakes, error: _error, status: _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      ["/api/students/all"],
+      ["/api/earthquakes/all"],
       { method: "GET", url: "/api/earthquakes/all" },
       []
     );
