@@ -1,34 +1,15 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import CollegeSubredditsIndexPage from "main/pages/CollegeSubreddits/CollegeSubredditsIndexPage";
+import UCSBSubjectsIndexPage from "main/pages/UCSBSubjects/UCSBSubjectsIndexPage";
+
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { collegeSubredditsFixtures } from "fixtures/collegeSubredditsFixtures";
+import { ucsbSubjectsFixtures } from "fixtures/ucsbSubjectsFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
-
-// describe("CollegeSubredditsIndexPage tests", () => {
-
-//     const axiosMock =new AxiosMockAdapter(axios);
-//     axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-//     axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-
-//     const queryClient = new QueryClient();
-//     test("renders without crashing", () => {
-//         render(
-//             <QueryClientProvider client={queryClient}>
-//                 <MemoryRouter>
-//                     <CollegeSubredditsIndexPage />
-//                 </MemoryRouter>
-//             </QueryClientProvider>
-//         );
-//     });
-
-// });
-
 
 
 const mockToast = jest.fn();
@@ -41,12 +22,11 @@ jest.mock('react-toastify', () => {
     };
 });
 
+describe("UCSBSubjectsIndexPage tests", () => {
 
-describe("UCSBDatesIndexPage tests", () => {
+    const axiosMock =new AxiosMockAdapter(axios);
 
-    const axiosMock = new AxiosMockAdapter(axios);
-
-    const testId = "CollegeSubredditsTable";
+    const testId = "UCSBSubjectsTable";
 
     const setupUserOnly = () => {
         axiosMock.reset();
@@ -65,12 +45,12 @@ describe("UCSBDatesIndexPage tests", () => {
     test("renders without crashing for regular user", () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegesubreddits/all").reply(200, []);
+        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegeSubredditsIndexPage />
+                    <UCSBSubjectsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -81,12 +61,12 @@ describe("UCSBDatesIndexPage tests", () => {
     test("renders without crashing for admin user", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegesubreddits/all").reply(200, []);
+        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegeSubredditsIndexPage />
+                    <UCSBSubjectsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -94,15 +74,34 @@ describe("UCSBDatesIndexPage tests", () => {
 
     });
 
-    test("renders three reddits without crashing for regular user", async () => {
+    test("renders three subjects without crashing for regular user", async () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegesubreddits/all").reply(200, collegeSubredditsFixtures.threeReddits);
+        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, ucsbSubjectsFixtures.threeSubjects);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegeSubredditsIndexPage />
+                    <UCSBSubjectsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+
+    });
+
+    test("renders three subjects without crashing for admin user", async () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, ucsbSubjectsFixtures.threeSubjects);
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <UCSBSubjectsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -117,14 +116,14 @@ describe("UCSBDatesIndexPage tests", () => {
         setupUserOnly();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegesubreddits/all").timeout();
+        axiosMock.onGet("/api/UCSBSubjects/all").timeout();
 
         const restoreConsole = mockConsole();
 
         const { queryByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegeSubredditsIndexPage />
+                    <UCSBSubjectsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -132,7 +131,7 @@ describe("UCSBDatesIndexPage tests", () => {
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
 
         const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/collegesubreddits/all");
+        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/UCSBSubjects/all");
         restoreConsole();
 
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
@@ -142,32 +141,31 @@ describe("UCSBDatesIndexPage tests", () => {
         setupAdminUser();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegesubreddits/all").reply(200, collegeSubredditsFixtures.threeReddits);
-        axiosMock.onDelete("/api/collegesubreddits/delete").reply(200, "CollegeSubreddit with id 1 was deleted");
+        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, ucsbSubjectsFixtures.threeSubjects);
+        axiosMock.onDelete("/api/UCSBSubjects").reply(200, "UCSBSubject with id 1 was deleted");
 
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <CollegeSubredditsIndexPage />
+                    <UCSBSubjectsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
 
         await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
 
-        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
 
 
         const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
         expect(deleteButton).toBeInTheDocument();
-
+       
         fireEvent.click(deleteButton);
 
-        await waitFor(() => { expect(mockToast).toBeCalledWith("CollegeSubreddit with id 1 was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("UCSBSubject with id 1 was deleted") });
 
     });
 
+
 });
-
-

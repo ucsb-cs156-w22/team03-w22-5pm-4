@@ -54,7 +54,9 @@ public class UCSBSubjectController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<UCSBSubject> allUCSBSubjects() {
-        // loggingService.logMethod();
+
+        ////loggingService.logMethod();
+
         Iterable<UCSBSubject> ucsbSubject = ucsbSubjectRepository.findAll();
         return ucsbSubject;
     }
@@ -64,7 +66,9 @@ public class UCSBSubjectController extends ApiController {
     @GetMapping("")
     public ResponseEntity<String> getUCSBSubjectById(
             @ApiParam("id") @RequestParam Long id) throws JsonProcessingException {
-        // loggingService.logMethod();
+
+        ////loggingService.logMethod();
+
 
         
         UCSBSubjectOrError soe = new UCSBSubjectOrError(id);
@@ -87,7 +91,9 @@ public class UCSBSubjectController extends ApiController {
             @ApiParam("collegeCode") @RequestParam String collegeCode,
             @ApiParam("relatedDeptCode") @RequestParam String relatedDeptCode,
             @ApiParam("inactive") @RequestParam Boolean inactive) {
-        // loggingService.logMethod();
+
+        ////loggingService.logMethod();
+
 
         UCSBSubject ucsbSubject = new UCSBSubject();
         ucsbSubject.setSubjectCode(subjectCode);
@@ -129,7 +135,9 @@ public class UCSBSubjectController extends ApiController {
     @DeleteMapping("")
     public ResponseEntity<String> deleteUCSBSubject(
             @ApiParam("id") @RequestParam Long id) {
-        // loggingService.logMethod();
+
+        ////loggingService.logMethod();
+
 
         UCSBSubjectOrError roe = new UCSBSubjectOrError(id);
 
@@ -149,7 +157,9 @@ public class UCSBSubjectController extends ApiController {
     public ResponseEntity<String> putUCSBSubjectById_admin(
             @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid UCSBSubjectNoId incomingUCSBSubjectNoId) throws JsonProcessingException {
-        // loggingService.logMethod();
+
+        //loggingService.logMethod();
+
 
         UCSBSubject incomingUCSBSubject = new UCSBSubject(id,incomingUCSBSubjectNoId);
         UCSBSubjectOrError toe = new UCSBSubjectOrError(id);
