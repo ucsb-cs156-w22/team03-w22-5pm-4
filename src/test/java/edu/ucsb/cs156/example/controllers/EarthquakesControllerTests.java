@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import edu.ucsb.cs156.example.ControllerTestCase;
+import edu.ucsb.cs156.example.repositories.UserRepository;
 import org.springframework.test.web.servlet.MvcResult;
 
 import edu.ucsb.cs156.example.services.EarthquakeQueryService;
@@ -29,13 +31,19 @@ import org.springframework.http.HttpHeaders;
 
 
 @WebMvcTest(value = EarthquakesController.class)
-public class EarthquakesControllerTests {
+public class EarthquakesControllerTests extends ControllerTestCase {
   private ObjectMapper mapper = new ObjectMapper();
   @Autowired
   private MockMvc mockMvc;
-
   @MockBean
-  EarthquakeQueryService mockEarthquakeQueryService;
+    UserRepository userRepository;
+
+
+    @MockBean
+    EarthquakeQueryService mockEarthquakeQueryService;
+
+  
+
 
   @Test
   public void test_getEarthquakes() throws Exception {
@@ -48,7 +56,7 @@ public class EarthquakesControllerTests {
     String url = String.format("/api/earthquakes/get?distance=%s&minMag=%s",distance,minMag);
 
     MvcResult response = mockMvc
-        .perform( get(url).contentType("application/json"))
+        .perform( get(url).contentType("/application/json"))
         .andExpect(status().isOk()).andReturn();
 
     String responseString = response.getResponse().getContentAsString();
