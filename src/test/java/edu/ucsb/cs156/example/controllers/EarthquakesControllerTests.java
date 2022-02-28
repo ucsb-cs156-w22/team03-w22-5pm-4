@@ -16,6 +16,7 @@ import edu.ucsb.cs156.example.services.EarthquakeQueryService;
 import edu.ucsb.cs156.example.documents.Feature;
 import edu.ucsb.cs156.example.documents.FeatureCollection;
 import edu.ucsb.cs156.example.documents.FeatureProperties;
+import edu.ucsb.cs156.example.documents.Metadata;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -56,16 +57,16 @@ public class EarthquakesControllerTests extends ControllerTestCase {
 
   @Test
   public void test_getEarthquakes() throws Exception {
-  
-    String fakeJsonResult="{ \"fake\" : \"result\" }";
+
+    String fakeJsonResult = "{ \"fake\" : \"result\" }";
     String distance = "100";
     String minMag = "1.5";
-    when(mockEarthquakeQueryService.getJSON(eq(distance),eq(minMag))).thenReturn(fakeJsonResult);
+    when(mockEarthquakeQueryService.getJSON(eq(distance), eq(minMag))).thenReturn(fakeJsonResult);
 
-    String url = String.format("/api/earthquakes/get?distance=%s&minMag=%s",distance,minMag);
+    String url = String.format("/api/earthquakes/get?distance=%s&minMag=%s", distance, minMag);
 
     MvcResult response = mockMvc
-        .perform( get(url).contentType("/application/json"))
+        .perform(get(url).contentType("/application/json"))
         .andExpect(status().isOk()).andReturn();
 
     String responseString = response.getResponse().getContentAsString();
@@ -73,54 +74,119 @@ public class EarthquakesControllerTests extends ControllerTestCase {
     assertEquals(fakeJsonResult, responseString);
   }
 
+  @WithMockUser(roles = { "ADMIN" })
   @Test
   public void test_getAll() throws Exception {
     FeatureProperties p1 = FeatureProperties.builder()
-        .mag(2.5)
-        .place("Chris")
+        .mag(3.05)
+        .place(
+            "10km ESE of Ojai, CA")
+        .time(
+            "time")
+        .title(
+            "title")
         .build();
     Feature f1 = Feature.builder()
-        ._id("0")
-        .id("0")
+        ._id(
+            "621c49b8839227546a2283bd")
+        .id("ci40194848")
+        .type(
+            "Feature")
         .properties(p1)
         .build();
 
-    FeatureProperties p2 = FeatureProperties.builder()
-        .mag(2.6)
-        .place("Bob")
-        .build();
-    Feature f2 = Feature.builder()
-        ._id("1")
-        .id("1")
-        .properties(p2)
-        .build();
+    List<Feature> features = new ArrayList<Feature>();
+    features.add(f1);
 
-    List<Feature> list = new ArrayList<Feature>();
-    list.add(f1);
-    list.add(f2);
+    // MetaData meta = MetaData.builder()
+    //     .generated("generated")
+    //     .url("url")
+    //     .title("title")
+    //     .status("status")
+    //     .api("api")
+    //     .count(4)
+    //     .build();
 
-    mockEarthquakesCollection.saveAll(list);
-    assertEquals(list, mockEarthquakesCollection.findAll());
-  }
+    // FeatureCollection featureCollection = FeatureCollection.builder()
+    //     .id("A")
+    //     .metadata("A")
+    //     .features(features)
+    //     .build();
+        
+    // String distance = "123";
+    // String minMag = "123";
+    
+    MvcResult response = mockMvc.perform(get("/api/earthquakes/all"))
+        .andExpect(status().isOk()).andReturn();
+             
+    verify(mockEarthquakesCollection, times(1)).findAll();
+    String expectedJson = mapper.writeValueAsString(features);
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(expectedJson, responseString);
+}
 
 
   @WithMockUser(roles = { "ADMIN" })
   @Test
   public void test_purge() throws Exception{
-    mockMvc.perform(post("/api/earthquakes/purge").with(csrf())).andExpect(status().isOk()).andReturn();
+    mockMvc.perform(delete("/api/earthquakes/purge").with(csrf())).andExpect(status().isOk()).andReturn();
     verify(mockEarthquakesCollection, times(1)).deleteAll();
   }
 
+
+  @WithMockUser(roles = { "ADMIN" })
   @Test
   public void test_Retrieve() throws Exception{
-    //distace = 100, magnitude = 2.5 - this returns 5
-  MvcResult response = mockMvc.perform(
-              post("/api/earthquakes/retrieve?distance=100&minMag=2.5")
-                              .with(csrf()))
-              .andExpect(status().isOk()).andReturn();
+    FeatureProperties properties = FeatureProperties.builder()
+    .mag(6.5)
+    .place("test")
+    .time("test")
+    .title("test")
+    .build();
 
+    List<FeatureProperties> lep = new ArrayList<>();
+    lep.add(properties);
+
+    Feature feature = Feature.builder()
+    ._id("a")
+    .type("test")
+    .properties(properties)
+    .id("test")
+    .build();
+
+    List<Feature> lef = new ArrayList<>();
+    lef.add(feature);
+
+    Metadata md = Metadata.builder()
+        .generated("123d")
+        .url("")
+        .title("metadata")
+        .status("200")
+        .api("")
+        .count(1)
+        .build();
+
+    FeatureCollection el = FeatureCollection.builder()
+        .id("123")
+        .metadata(md)
+        .features(lef)
+        .build();
+
+    String magnitude = "10";
+    String distance = "100";
+
+    when(mockEarthquakeQueryService.getJSON(distance, magnitude)).thenReturn(mapper.writeValueAsString(el));
+    when(mockEarthquakesCollection.saveAll(lef)).thenReturn(lef);
+
+    MvcResult response = mockMvc.perform(post(String.format("/api/earthquakes/retrieve?distance=%s&minMag=%s", distance, magnitude))
+        .with(csrf()))
+        .andExpect(status().isOk()).andReturn();
+
+    verify(mockEarthquakesCollection, times(1)).saveAll(lef);
+    verify(mockEarthquakeQueryService, times(1)).getJSON(distance, magnitude);
+    String expectedJson = mapper.writeValueAsString(lef);
     String responseString = response.getResponse().getContentAsString();
-    assertEquals("5", responseString);
-  }
-}
+    assertEquals(expectedJson, responseString);
+    }
+}       
 
