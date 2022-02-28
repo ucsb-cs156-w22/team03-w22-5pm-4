@@ -75,8 +75,8 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Title 1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Title 2");
     });
 
     test("renders two earthquakes without crashing for admin user", async () => {
@@ -92,8 +92,8 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Title 1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Title 2");
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
@@ -118,7 +118,7 @@ describe("EarthquakesIndexPage tests", () => {
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
         restoreConsole();
 
-        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+        expect(queryByTestId(`${testId}-cell-row-0-col-title`)).not.toBeInTheDocument();
     });
 
 });
