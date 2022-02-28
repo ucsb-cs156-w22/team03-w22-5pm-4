@@ -18,7 +18,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feature {
     @Id
+    private String _id;
+    private String id;
     private String type;
     private FeatureProperties properties;
-    private String id;
 }

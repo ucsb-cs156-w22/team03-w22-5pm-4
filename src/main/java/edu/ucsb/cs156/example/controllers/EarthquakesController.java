@@ -14,6 +14,7 @@ import edu.ucsb.cs156.example.documents.Metadata;
 import edu.ucsb.cs156.example.services.EarthquakeQueryService;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,14 +59,13 @@ public class EarthquakesController extends ApiController{
     @ApiOperation(value = "List all Earthquakes")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<Feature> index() throws JsonProcessingException{
-        Iterable<Feature> feature = earthquakesCollection.findAll();
-        return feature;
+    public ResponseEntity<List<Feature>> index() throws JsonProcessingException{
+        return ResponseEntity.ok().body(earthquakesCollection.findAll());
     }
 
     @ApiOperation(value = "Delete all earthquakes from Earthquakes Collection")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/purge")
+    @DeleteMapping("/purge")
     public void purge() throws JsonProcessingException{
         earthquakesCollection.deleteAll();
     }
@@ -73,7 +73,7 @@ public class EarthquakesController extends ApiController{
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Retrieve Earthquakes from UCSB's Storke Tower that above a magnitude and put them in database collection", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
     @PostMapping("/retrieve")
-    public List<Feature> postEarthquakeFeature(
+    public int postEarthquakeFeature(
         @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
         @ApiParam("minimum magnitude, e.g. 2.5") @RequestParam String minMag
     ) throws JsonProcessingException {
@@ -81,8 +81,9 @@ public class EarthquakesController extends ApiController{
         String result = earthquakeQueryService.getJSON(distance, minMag);
         FeatureCollection collection = mapper.readValue(result, FeatureCollection.class);
         List<Feature> features = collection.getFeatures();
-        List<Feature> storedFeatures = earthquakesCollection.saveAll(features);
-        return storedFeatures;
+        earthquakesCollection.saveAll(features);
+        int numRetrieved = features.size();
+        return numRetrieved;
     }
 
 }
