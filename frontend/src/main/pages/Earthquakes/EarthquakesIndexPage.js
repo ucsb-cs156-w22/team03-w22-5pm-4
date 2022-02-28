@@ -1,7 +1,6 @@
 import React from 'react'
 import { useBackend } from 'main/utils/useBackend';
 import { Button } from "react-bootstrap";
-// import { toast } from 'react-toastify';
 
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
@@ -21,15 +20,36 @@ export default function EarthquakesIndexPage() {
       []
     );
 
+    // const objectToAxiosParams = (earthquake) => ({
+    //   url: "/api/earthquakes/purge",
+    //   method: "POST",
+    // });
 
+    // const onSuccess = (earthquake) => {
+    //   toast(`All Earthquakes purged.`);
+    // }
 
+    // const mutation = useBackendMutation(
+    //   objectToAxiosParams,
+    //    { onSuccess }, 
+    //    // Stryker disable next-line all : hard to set up test for caching
+    //    ["/api/earthquakes/all"]
+    //    );
+  
+    // const onSubmit = async (data) => {
+    //   mutation.mutate(data);
+    // }
     
   return (
     <BasicLayout>
       <div className="pt-2">
         <h1>Earthquakes</h1>
         <EarthquakesTable earthquakes={earthquakes} currentUser={currentUser} />
-        <Button>
+        <Button
+        // type="submit"
+        // onClick={onSubmit}
+        // data-testid="EarthquakesList-purge"
+        >
           Purge
         </Button>
       </div>
