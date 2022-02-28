@@ -46,38 +46,40 @@ function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve
             )} */}
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="dist">Distance</Form.Label>
+                <Form.Label htmlFor="distance">Distance</Form.Label>
                 <Form.Control
-                    data-testid="EarthquakeForm-dist"
-                    id="dist"
+                    data-testid="EarthquakeForm-distance"
+                    id="distance"
                     type="text"
-                    isInvalid={Boolean(errors.dist)}
-                    {...register("dist", { required: true})}
+                    isInvalid={Boolean(errors.distance)}
+                    {...register("distance", {
+                        required: "Distance is required."
+                    })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.dist && 'Distance is required. '}
+                    {errors.distance?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="mag">Min Magnitude</Form.Label>
+                <Form.Label htmlFor="minMag">MinMag</Form.Label>
                 <Form.Control
-                    data-testid="EarthquakeForm-mag"
-                    id="mag"
+                    data-testid="EarthquakeForm-minMag"
+                    id="minMag"
                     type="text"
-                    isInvalid={Boolean(errors.name)}
-                    {...register("mag", {
-                        required: "Min Magnitude is required."
+                    isInvalid={Boolean(errors.minMag)}
+                    {...register("minMag", {
+                        required: "MinMag is required."
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.name?.message}
+                    {errors.minMag?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
             <Button
                 type="submit"
-                data-testid="EarthquakeForm-submit"
+                data-testid="EarthquakeForm-retrieve"
             >
                 {buttonLabel}
             </Button>
@@ -88,7 +90,6 @@ function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve
             >
                 Cancel
             </Button>
-
         </Form>
 
     )

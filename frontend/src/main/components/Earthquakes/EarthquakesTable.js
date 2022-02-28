@@ -5,12 +5,8 @@ export default function EarthquakesTable({ earthquakes, currentUser }) {
 
     const columns = [
         {
-            Header: 'id',
-            accessor: 'id', // accessor is the "key" in the data
-        },
-        {
             Header: 'Title',
-            accessor: 'title',
+            accessor: 'title', // accessor is the "key" in the data
         },
         {
             Header: 'Mag',
@@ -25,6 +21,11 @@ export default function EarthquakesTable({ earthquakes, currentUser }) {
             accessor: 'time',
         }
     ];
+
+    // if (hasRole(currentUser, "ROLE_ADMIN")) {
+    //     columns.push(ButtonColumn("Edit", "primary", editCallback, "EarthquakesTable"));
+    //     columns.push(ButtonColumn("Delete", "danger", deleteCallback, "EarthquakesTable"));
+    // } 
 
     // Stryker disable ArrayDeclaration : [columns] and [students] are performance optimization; mutation preserves correctness
     const memoizedColumns = React.useMemo(() => columns, [columns]);
