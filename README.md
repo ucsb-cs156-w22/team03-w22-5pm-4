@@ -1,4 +1,4 @@
-# demo-spring-react-example-v2: dsre-v2
+# team03-w22-5pm-4
 
 [![codecov](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-4/branch/main/graph/badge.svg?token=MPpzgIcfyf)](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-4)
 
