@@ -14,4 +14,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class FeatureProperties {
     private double mag;
     private String place;
+    private String time;
+    private String title;
 }
