@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage.sample.";
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 
 export default {
     title: 'pages/Earthquakes/EarthquakesIndexPage',

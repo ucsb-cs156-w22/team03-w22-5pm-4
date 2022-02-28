@@ -1,6 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
-export default function EarthquakesCreatePage() {
+export default function EarthquakesRetrievePage() {
   return (
     <BasicLayout>
       <div className="pt-2">
