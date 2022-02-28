@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import EarthquakesCreatePage from "main/pages/Earthquakes/EarthquakesCreatePage";
+import EarthquakesRetrievePage from "main/pages/Earthquakes/EarthquakesRetrievePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
 
-describe("EarthquakesCreatePage tests", () => {
+describe("EarthquakesRetrievePage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
     axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
@@ -20,7 +20,7 @@ describe("EarthquakesCreatePage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <EarthquakesCreatePage />
+                    <EarthquakesRetrievePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
