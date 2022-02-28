@@ -21,6 +21,16 @@ jest.mock('react-toastify', () => {
     };
 });
 
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+    return {
+        __esModule: true,
+        ...originalModule,
+        Navigate: (x) => { mockNavigate(x); return null; }
+    };
+});
+
 describe("EarthquakesIndexPage tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
@@ -131,6 +141,32 @@ describe("EarthquakesIndexPage tests", () => {
         expect(queryByTestId(`${testId}-cell-row-0-col-_id`)).not.toBeInTheDocument();
     });
 
+
+    test("renders empty table when backend unavailable, user only", async () => {
+        setupUserOnly();
+
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/Earthquakes/all").timeout();
+
+        const restoreConsole = mockConsole();
+
+        const { queryByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
+
+        const errorMessage = console.error.mock.calls[0][0];
+        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
+        restoreConsole();
+
+        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+    });
+
     test("test what happens when you click purge, admin", async () => {
         setupAdminUser();
 
@@ -149,7 +185,7 @@ describe("EarthquakesIndexPage tests", () => {
 
         await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toBeInTheDocument(); });
 
-       expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1"); 
+        expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1"); 
 
 
         const purgeButton = getByTestId("purge-button");
@@ -157,8 +193,11 @@ describe("EarthquakesIndexPage tests", () => {
        
         fireEvent.click(purgeButton);
 
-        await waitFor(() => { expect(mockToast).toBeCalledWith("Successfully deleted all earthquakes!") });
+        await waitFor(() =>  expect(mockToast).toBeCalledWith("Successfully deleted all earthquakes!"));
+       
 
     });
+
+    
 
 });

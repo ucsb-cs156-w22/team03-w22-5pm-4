@@ -20,10 +20,12 @@ export default function EarthquakesIndexPage() {
     );
 
     function Purge_Button (){
+      // Stryker disable next-line all : don't test internal caching of React Query
       if (hasRole(currentUser, "ROLE_ADMIN")) {
         const purge = useBackendMutation(
           () => ({ url: "/api/earthquakes/purge", method: "Delete" }),
           { onSuccess: () => { toast("Successfully deleted all earthquakes!"); } },
+          // Stryker disable next-line all : don't test internal caching of React Query
           ["/api/earthquakes/all"],
         );
         return (
