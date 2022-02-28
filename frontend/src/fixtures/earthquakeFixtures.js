@@ -1,16 +1,18 @@
 const earthquakeFixtures = {
     twoEarthquakes: [
        {
-        "title": "Title 1",
-        "mag": 1,
-        "place": "Place 1",
-        "time": 1,
+        "_id" : "1",
+        "properties.title": "Title 1",
+        "properties.mag": 10,
+        "properties.place": "Place 1",
+        "properties.time": 11,
        },
        {
-        "title": "Title 2",
-        "mag": 2,
-        "place": "Place 2",
-        "time": 2,
+        "_id" : "2",
+        "properties.title": "Title 2",
+        "properties.mag": 20,
+        "properties.place": "Place 2",
+        "properties.time": 21,
        }
     
     ]

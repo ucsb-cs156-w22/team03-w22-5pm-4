@@ -16,7 +16,7 @@ export default function EarthquakesRetrievePage() {
   });
 
   const onSuccess = (earthquake) => {
-    toast(`${earthquake.distance} Earthquake retrieved`);
+    toast(`${earthquake.length} Earthquakes retrieved`);
   }
 
   const mutation = useBackendMutation(

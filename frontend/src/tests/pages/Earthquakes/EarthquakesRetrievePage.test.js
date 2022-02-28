@@ -74,10 +74,10 @@ describe("EarthquakesRetrievePage tests", () => {
 
         const distanceField = getByTestId("EarthquakeForm-distance");
         const minMagField = getByTestId("EarthquakeForm-minMag");
-        const submitButton = getByTestId("EarthquakeForm-submit");
+        const submitButton = getByTestId("EarthquakeForm-retrieve");
 
-        fireEvent.change(distanceField, { target: { value: '1000' } });
-        fireEvent.change(minMagField, { target: { value: '2' } });
+        fireEvent.change(distanceField, { target: { value: '1' } });
+        fireEvent.change(minMagField, { target: { value: '1' } });
 
         expect(submitButton).toBeInTheDocument();
 
@@ -87,11 +87,11 @@ describe("EarthquakesRetrievePage tests", () => {
 
         expect(axiosMock.history.post[0].params).toEqual(
             {
-            "distance": "1000",
-            "minMag": "2"
+            "distance": "1",
+            "minMag": "1"
         });
 
-        expect(mockToast).toBeCalledWith("New earthquake Retrieved - distance: 1000 minMag: 2");
+        expect(mockToast).toBeCalledWith("undefined Earthquakes retrieved");
         expect(mockNavigate).toBeCalledWith({ "to": "/earthquakes/list" });
     });
 

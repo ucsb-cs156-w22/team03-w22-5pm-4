@@ -1,30 +1,49 @@
 import React from "react";
-import OurTable from "main/components/OurTable";
+import OurTable, { ButtonColumn } from "main/components/OurTable";
+
+// import { useBackendMutation } from "main/utils/useBackend";
+// import { cellToAxiosParamsPurge, onPurgeSuccess } from "main/utils/EarthquakeUtils"
+// import { useNavigate } from "react-router-dom";
+// import { hasRole } from "main/utils/currentUser";
 
 export default function EarthquakesTable({ earthquakes, currentUser }) {
 
+    // const purgeMutation = useBackendMutation(
+    //     cellToAxiosParamsPurge,
+    //     { onSuccess: onPurgeSuccess },
+    //     ["/api/earthquakes/all"]
+    // );
+    // // Stryker enable all 
+
+    // // Stryker disable next-line all : TODO try to make a good test for this
+    // const purgeCallback = async (cell) => { purgeMutation.mutate(cell); }
+
     const columns = [
         {
+            Header: 'id',
+            accessor: '_id'
+        },
+        {
             Header: 'Title',
-            accessor: 'title', // accessor is the "key" in the data
+            accessor: 'properties.title', // accessor is the "key" in the data
         },
         {
             Header: 'Mag',
-            accessor: 'mag',
+            accessor: 'properties.mag',
         },
         {
             Header: 'Place',
-            accessor: 'place',
+            accessor: 'properties.place',
         },
         {
             Header: 'Time',
-            accessor: 'time',
+            accessor: 'properties.time',
         }
     ];
 
     // if (hasRole(currentUser, "ROLE_ADMIN")) {
-    //     columns.push(ButtonColumn("Edit", "primary", editCallback, "EarthquakesTable"));
-    //     columns.push(ButtonColumn("Delete", "danger", deleteCallback, "EarthquakesTable"));
+    //     // columns.push(ButtonColumn("Edit", "primary", editCallback, "EarthquakesTable"));
+    //     columns.push(ButtonColumn("Purge", "danger", purgeCallback, "EarthquakesTable"));
     // } 
 
     // Stryker disable ArrayDeclaration : [columns] and [students] are performance optimization; mutation preserves correctness

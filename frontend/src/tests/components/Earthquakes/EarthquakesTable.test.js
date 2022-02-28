@@ -61,8 +61,8 @@ describe("EarthquakesTable tests", () => {
 
     );
 
-    const expectedHeaders = ["Title", "Mag", "Place", "Time"];
-    const expectedFields = ["title", "mag", "place", "time"];
+    const expectedHeaders = ["id", "Title", "Mag", "Place", "Time"];
+    const expectedFields = ["_id","properties.title", "properties.mag", "properties.place", "properties.time"];
     const testId = "EarthquakesTable";
 
     expectedHeaders.forEach( (headerText) => {
@@ -75,14 +75,17 @@ describe("EarthquakesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Title 1");
-    expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Title 2");
-    expect(getByTestId(`${testId}-cell-row-0-col-mag`)).toHaveTextContent("1");
-    expect(getByTestId(`${testId}-cell-row-1-col-mag`)).toHaveTextContent("2");
-    expect(getByTestId(`${testId}-cell-row-0-col-place`)).toHaveTextContent("Place 1");
-    expect(getByTestId(`${testId}-cell-row-1-col-place`)).toHaveTextContent("Place 2");
-    expect(getByTestId(`${testId}-cell-row-0-col-time`)).toHaveTextContent("1");
-    expect(getByTestId(`${testId}-cell-row-1-col-time`)).toHaveTextContent("2");
+    expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1");
+    expect(getByTestId(`${testId}-cell-row-1-col-_id`)).toHaveTextContent("2");
+
+    // expect(getByTestId(`${testId}-cell-row-0-col-properties.title`)).toHaveTextContent("Title 1");
+    // expect(getByTestId(`${testId}-cell-row-1-col-properties.title`)).toHaveTextContent("Title 2");
+    // expect(getByTestId(`${testId}-cell-row-0-col-properties.mag`)).toHaveTextContent("10");
+    // expect(getByTestId(`${testId}-cell-row-1-col-properties.mag`)).toHaveTextContent("20");
+    // expect(getByTestId(`${testId}-cell-row-0-col-properties.place`)).toHaveTextContent("Place 1");
+    // expect(getByTestId(`${testId}-cell-row-1-col-properties.place`)).toHaveTextContent("Place 2");
+    // expect(getByTestId(`${testId}-cell-row-0-col-properties.time`)).toHaveTextContent("11");
+    // expect(getByTestId(`${testId}-cell-row-1-col-properties.time`)).toHaveTextContent("21");
 
   });
 

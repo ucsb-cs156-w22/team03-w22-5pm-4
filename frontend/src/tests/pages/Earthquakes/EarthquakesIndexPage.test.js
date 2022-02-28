@@ -3,13 +3,23 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 
-
+import { fireEvent } from "@testing-library/react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { earthquakeFixtures } from "fixtures/earthquakeFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
+
+const mockToast = jest.fn();
+jest.mock('react-toastify', () => {
+    const originalModule = jest.requireActual('react-toastify');
+    return {
+        __esModule: true,
+        ...originalModule,
+        toast: (x) => mockToast(x)
+    };
+});
 
 describe("EarthquakesIndexPage tests", () => {
 
@@ -75,8 +85,8 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Title 1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Title 2");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-_id`)).toHaveTextContent("2");
     });
 
     test("renders two earthquakes without crashing for admin user", async () => {
@@ -92,8 +102,8 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("Title 1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("Title 2");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-_id`)).toHaveTextContent("2");
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
@@ -118,7 +128,37 @@ describe("EarthquakesIndexPage tests", () => {
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
         restoreConsole();
 
-        expect(queryByTestId(`${testId}-cell-row-0-col-title`)).not.toBeInTheDocument();
+        expect(queryByTestId(`${testId}-cell-row-0-col-_id`)).not.toBeInTheDocument();
+    });
+
+    test("test what happens when you click purge, admin", async () => {
+        setupAdminUser();
+
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakeFixtures.twoEarthquakes);
+        axiosMock.onDelete("/api/earthquakes/purge").reply(200, "Successfully deleted all earthquakes!");
+
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toBeInTheDocument(); });
+
+       expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1"); 
+
+
+        const purgeButton = getByTestId("purge-button");
+        expect(purgeButton).toBeInTheDocument();
+       
+        fireEvent.click(purgeButton);
+
+        await waitFor(() => { expect(mockToast).toBeCalledWith("Successfully deleted all earthquakes!") });
+
     });
 
 });
