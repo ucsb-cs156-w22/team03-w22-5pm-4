@@ -114,6 +114,14 @@ describe("EarthquakesIndexPage tests", () => {
 
         await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_id`)).toHaveTextContent("1"); });
         expect(getByTestId(`${testId}-cell-row-1-col-_id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-0-col-properties.title`)).toHaveTextContent("Title 1");
+        expect(getByTestId(`${testId}-cell-row-1-col-properties.title`)).toHaveTextContent("Title 2");
+        expect(getByTestId(`${testId}-cell-row-0-col-properties.mag`)).toHaveTextContent("10");
+        expect(getByTestId(`${testId}-cell-row-1-col-properties.mag`)).toHaveTextContent("20");
+        expect(getByTestId(`${testId}-cell-row-0-col-properties.place`)).toHaveTextContent("Place 1");
+        expect(getByTestId(`${testId}-cell-row-1-col-properties.place`)).toHaveTextContent("Place 2");
+        expect(getByTestId(`${testId}-cell-row-0-col-properties.time`)).toHaveTextContent("11");
+        expect(getByTestId(`${testId}-cell-row-1-col-properties.time`)).toHaveTextContent("21");
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
